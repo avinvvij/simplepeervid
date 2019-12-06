@@ -33,7 +33,7 @@
     setInterval(() => {
         context.drawImage(video, 0, 0, 200, 150);
         socket.emit('mystream', canvas.toDataURL());
-    }, 5)
+    }, 20)
 </script>
 <script>
     var video = document.getElementById("video");
