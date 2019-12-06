@@ -1,0 +1,23 @@
+{
+  "name": "nodeholla",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "holla": "^0.6.3",
+    "rtc": "^3.4.0",
+    "simple-peer": "^9.6.2",
+    "socket.io": "^2.3.0",
+    "wrtc": "^0.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}
