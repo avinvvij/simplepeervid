@@ -1,6 +1,6 @@
 <html>
 <style>
-    #canvas #video {
+    #peercanvas #canvas #video {
         width: 500px;
         height: 375px;
         background-color: #666;
@@ -12,33 +12,34 @@
 
     </video>
     <canvas id="canvas"></canvas>
+    <canvas id="peercanvas"></canvas>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script>
+    let count = 0;
     var socket = io();
     let canvas = document.getElementById("canvas");
+    let peercanvas = document.getElementById("peercanvas")
     var context = canvas.getContext("2d");
-    console.log(socket.id);
+    var peercontext = peercanvas.getContext("2d");
+    var image = new Image();
     socket.on('mystream', function (msg) {
-        console.log(msg.toString().split('@')[0]);
-        if (socket.id != msg.toString().split('@')[0]) {
-            context.drawImage(msg.toString().split('@')[1], 0, 0, 200, 150);
+        if (socket.id != msg.toString().split('@')[0]) {                    
+            peercontext.drawImage(image, 0, 0, 200, 150);
+            image.src = msg.toString().split('@')[1];
         }
     });
     setInterval(() => {
-        socket.emit('mystream', canvas.toDataURL('image/webp'));
+        context.drawImage(video, 0, 0, 200, 150);
+        socket.emit('mystream', canvas.toDataURL());
     }, 50)
 </script>
 <script>
     var video = document.getElementById("video");
-
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
-                console.log(stream);
                 video.srcObject = stream;
-
-
             })
             .catch(function (error) {
                 console.log(error);
