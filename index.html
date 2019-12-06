@@ -22,7 +22,7 @@
     socket.on('mystream', function (msg) {
         console.log(msg.toString().split('@')[0]);
         if (socket.id != msg.toString().split('@')[0]) {
-            context.drawImage(video, 0, 0, 200, 150);
+            context.drawImage(msg.toString().split('@')[1], 0, 0, 200, 150);
         }
     });
     setInterval(() => {
