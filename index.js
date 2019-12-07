@@ -8,13 +8,14 @@ io.on("connection", (mySocket) => {
     mySocket.on("disconnect", () => {
         console.log("User disconnected");
     })
-    mySocket.on("mystream", (msg) => {        
+    mySocket.on("mystream", (msg) => {   
+        console.log(msg);     
         io.sockets.emit("mystream", mySocket.id+"@"+msg);
     })
 })
 
 app.get("/", (req, res, next) => {
-    res.sendfile(__dirname + "/simplepeer.html");
+    res.sendfile(__dirname + "/index.html");
 })
 
 http.listen(process.env.PORT || 9001, () => {
