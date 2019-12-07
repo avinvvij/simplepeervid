@@ -1,7 +1,23 @@
 var Peer = require('simple-peer');
 var wrtc = require('wrtc');
 
-var peer1 = new Peer({ initiator: window.location.hash === "#init" ? true : false, wrtc: wrtc, trickle: false })
+var peer1 = new Peer({
+    initiator: window.location.hash === "#init" ? true : false, wrtc: wrtc, trickle: false, config: {
+        reconnectTimer: 100,
+        iceServers: [
+            {
+                urls: "stun:numb.viagenie.ca",
+                username: "avinvij26@gmail.com",
+                credential: "avinvij"
+            },
+            {
+                urls: "turn:numb.viagenie.ca",
+                username: "avinvij26@gmail.com",
+                credential: "avinvij"
+            }
+        ]
+    }
+})
 peer1.on("signal", function (data) {
     document.getElementById("myId").value = JSON.stringify(data);
 })
@@ -9,7 +25,7 @@ peer1.on("signal", function (data) {
 document.getElementById("connect").addEventListener('click', function () {
     var otherId = JSON.parse(document.getElementById('otherId').value);
     peer1.signal(otherId);
-    console.log("otherId: "+otherId)    
+    console.log("otherId: " + otherId)
 })
 
 document.getElementById("send").addEventListener("click", function () {
@@ -19,5 +35,5 @@ document.getElementById("send").addEventListener("click", function () {
 
 peer1.on("data", function (data) {
     console.log(data);
-    document.getElementById("chatmsgs").innerHTML = "<lable>"+data+"</label><br/>"+document.getElementById("chatmsgs").innerHTML
+    document.getElementById("chatmsgs").innerHTML = "<lable>" + data + "</label><br/>" + document.getElementById("chatmsgs").innerHTML
 })
