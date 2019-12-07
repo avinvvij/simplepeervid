@@ -5370,14 +5370,10 @@ var peer1 = new Peer({
     iceTransportPolicy: 'relay', config: {
         iceServers: [
             {
-                urls: "stun:numb.viagenie.ca",
-                username: "avinvij26@gmail.com",
-                credential: "avinvij"
+                urls: "stun:numb.viagenie.ca"
             },
             {
-                urls: "turn:numb.viagenie.ca",
-                username: "avinvij26@gmail.com",
-                credential: "avinvij"
+                urls: "turn:numb.viagenie.ca[avinvij26@gmail.com:avinvij]"
             }
         ]
     }
