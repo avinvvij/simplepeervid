@@ -1,0 +1,139 @@
+<html>
+<style>
+    #peercanvas #canvas #video {
+        width: 500px;
+        height: 375px;
+        background-color: #666;
+    }
+</style>
+
+<body>
+    <div>
+        <input id="peerid" placeholder="enter ID" type="text" />
+        <button onclick="connectToPeer()">Submit</button>
+        <button onclick="placeCall()">Call</button>
+        <label id="mypeerid"></label>
+        <input id="msg" placeholder="send message" type="text" />
+        <button onclick="sendMsg()">Send Message</button>
+    </div>
+    <div>
+        <div id="chatsection" style="width: 200px; height: 200px;"></div>
+
+        <div style="float: left;">
+            <video autoplay="true" id="video">
+
+            </video>
+        </div>
+    </div>
+    <canvas id="canvas"></canvas>
+    <canvas id="peercanvas"></canvas>
+</body>
+<script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
+<script>
+    var peer = new Peer();
+    var con = null;
+    var myid = ""
+    peer.on("open", function (id) {
+        console.log(id);
+        document.getElementById("mypeerid").innerHTML = id;
+        myid = id
+    })
+    peer.on("disconnect", function () {
+        console.log(disconnected);
+    })
+    peer.on("connection", function (c) {
+        console.log("connection received");
+        if (con) {
+            c.on('open', function () {
+                c.send("Already connected to another client");
+                setTimeout(function () { c.close(); }, 500);
+            });
+        } else {
+            console.log(c);
+            con = c;
+            c.on('open', function () {
+                console.log("open connection");
+            })
+            c.on('data', function (data) {
+                console.log("received the data");
+                console.log(data);
+                document.getElementById("chatsection").innerHTML = "<label>" + c.peer + ": " + data + "</label><br>" + document.getElementById("chatsection").innerHTML
+            })
+            c.on('close', function () {
+                console.log("disconnected");
+            })
+        }
+    })
+
+    peer.on("close", function () {
+        console.log("peer disconnected");
+    })
+
+    peer.on('call', function (call) {
+        let video = document.getElementById("video");
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function (stream) {
+            call.answer(stream); // Answer the call with an A/V stream.
+            call.on('stream', function (remoteStream) {
+                // Show stream in some video/canvas element.
+                console.log("streaming");
+                video.srcObject = remoteStream;
+            });
+        }).catch(function (err) {
+            console.log('Failed to get local stream', err);
+        });
+    });
+
+    function sendMsg() {
+        con.send(document.getElementById("msg").value);
+        document.getElementById("chatsection").innerHTML = "<label>" + myid + ": " + document.getElementById("msg").value + "</label><br>" + document.getElementById("chatsection").innerHTML
+        document.getElementById("msg").value = ""
+    }
+
+    function placeCall() {
+        console.log("Streaming call")
+        let video = document.getElementById("video");
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function (stream) {
+            var call = peer.call(document.getElementById("peerid").value, stream);
+            call.on('stream', function (remoteStream) {
+                // Show stream in some video/canvas element.
+                console.log("call connected");
+                console.log("streaming");
+                video.srcObject = remoteStream;
+            });
+        }).catch(function (err) {
+            console.log('Failed to get local stream', err);
+        })
+    }
+
+    function connectToPeer() {
+        console.log("Will connect here");
+        con = peer.connect(document.getElementById("peerid").value, { reliable: true })
+        con.on('open', function () {
+            console.log("connected");
+            con.send("hi");
+        })
+        con.on('data', function (data) {
+            console.log("received the data");
+            document.getElementById("chatsection").innerHTML = "<label>" + con.peer + ": " + data + "</label><br>" + document.getElementById("chatsection").innerHTML
+            console.log(data);
+        })
+        con.on('close', function () {
+            console.log("disconnected");
+        })
+    }
+</script>
+<script>
+    // var video = document.getElementById("video");
+    // if (navigator.mediaDevices.getUserMedia) {
+    //     navigator.mediaDevices.getUserMedia({ video: true })
+    //         .then(function (stream) {
+    //             video.srcObject = stream;
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //             console.log("Something went wrong!");
+    //         });
+    // }
+</script>
+
+</html>

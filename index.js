@@ -14,7 +14,7 @@ io.on("connection", (mySocket) => {
 })
 
 app.get("/", (req, res, next) => {
-    res.sendfile(__dirname + "/index.html");
+    res.sendfile(__dirname + "/simplepeer.html");
 })
 
 http.listen(process.env.PORT || 9001, () => {
