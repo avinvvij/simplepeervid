@@ -5375,7 +5375,7 @@ var peer1 = new Peer({
                 credential: "avinvij"
             },
             {
-                urls: "turn:numb.viagenie.ca?transport=tcp",
+                urls: "turn:numb.viagenie.ca",
                 username: "avinvij26@gmail.com",
                 credential: "avinvij"
             }
