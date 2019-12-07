@@ -4,7 +4,20 @@ var wrtc = require('wrtc');
 var peer1 = new Peer({
     initiator: window.location.hash === "#init" ? true : false, wrtc: wrtc, trickle: false,
     reconnectTimer: 100,
-    iceTransportPolicy: 'relay'
+    iceTransportPolicy: 'relay', config: {
+        iceServers: [
+            {
+                urls: "stun:numb.viagenie.ca",
+                username: "avinvij26@gmail.com",
+                credential: "avinvij"
+            },
+            {
+                urls: "turn:numb.viagenie.ca?transport=tcp",
+                username: "avinvij26@gmail.com",
+                credential: "avinvij"
+            }
+        ]
+    }
 })
 peer1.on("signal", function (data) {
     document.getElementById("myId").value = JSON.stringify(data);
