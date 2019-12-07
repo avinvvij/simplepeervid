@@ -10,7 +10,9 @@ var peer1 = new Peer({
                 urls: "stun:numb.viagenie.ca"
             },
             {
-                urls: "turn:numb.viagenie.ca[avinvij26@gmail.com:avinvij]"
+                urls: "turn:numb.viagenie.ca",
+                username: "avinvij26@gmail.com",
+                credential: "avinvij"
             }
         ]
     }
