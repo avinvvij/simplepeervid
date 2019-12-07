@@ -30,7 +30,7 @@
 </body>
 <script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
 <script>
-    var peer = new Peer();
+    var peer = new Peer(/*{host: 'localhost', port: 9000, path: '/'}*/);
     var con = null;
     var myid = ""
     peer.on("open", function (id) {
