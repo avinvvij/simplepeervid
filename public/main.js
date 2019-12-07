@@ -2,8 +2,9 @@ var Peer = require('simple-peer');
 var wrtc = require('wrtc');
 
 var peer1 = new Peer({
-    initiator: window.location.hash === "#init" ? true : false, wrtc: wrtc, trickle: false, config: {
-        reconnectTimer: 100,
+    initiator: window.location.hash === "#init" ? true : false, wrtc: wrtc, trickle: false,
+    reconnectTimer: 100,
+    iceTransportPolicy: 'relay', iceCandidatePoolSize: 10, config: {
         iceServers: [
             {
                 urls: "stun:numb.viagenie.ca",
