@@ -4,13 +4,14 @@ var io = require("socket.io")(http);
 
 io.on("connection", (mySocket) => {
     console.log("user connected");
-    io.sockets.emit("newuser" , mySocket.id)
+    io.sockets.emit("newuser", mySocket.id)
     mySocket.on("disconnect", () => {
         console.log("User disconnected");
     })
-    mySocket.on("mystream", (msg) => {   
+    mySocket.on("mystream", (msg) => {
         //console.log(msg);     
-        io.sockets.emit("mystream", mySocket.id+"@"+msg);
+        //console.log(msg)
+        io.sockets.emit("mystream", mySocket.id + "@" + msg);
     })
 })
 

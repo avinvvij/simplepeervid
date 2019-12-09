@@ -20,8 +20,10 @@
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
+                console.log(stream)
                 video.srcObject = stream;
-                socket.emit('mystream', stream);
+                window.URL.createObjectURL(video.srcObject)
+                socket.emit('mystream', stream.toString());
             })
             .catch(function (error) {
                 console.log(error);
@@ -44,7 +46,8 @@
     });
     setInterval(() => {
         context.drawImage(video, 0, 0, 200, 150);
-        socket.emit('mystream', canvas.toDataURL());
+        console.log(canvas.toDataURL("image/webp"));
+        socket.emit('mystream', canvas.toDataURL('image/webp'));
     }, 50)
 </script>
 
