@@ -1,6 +1,6 @@
 <html>
 <style>
-    #peercanvas #canvas #video {
+    #peercanvas #myvideo #canvas #video {
         width: 500px;
         height: 375px;
         background-color: #666;
@@ -21,6 +21,9 @@
 
         <div style="float: left;">
             <video autoplay="true" id="video">
+
+            </video>
+            <video autoplay="true" id="myvideo">
 
             </video>
         </div>
@@ -136,17 +139,17 @@
     }
 </script>
 <script>
-    // var video = document.getElementById("video");
-    // if (navigator.mediaDevices.getUserMedia) {
-    //     navigator.mediaDevices.getUserMedia({ video: true })
-    //         .then(function (stream) {
-    //             video.srcObject = stream;
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //             console.log("Something went wrong!");
-    //         });
-    // }
+    var myvideo = document.getElementById("myvideo");
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                myvideo.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.log(error);
+                console.log("Something went wrong!");
+            });
+    }
 </script>
 
 </html>
