@@ -30,7 +30,20 @@
 </body>
 <script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
 <script>
-    var peer = new Peer(/*{host: 'localhost', port: 9000, path: '/'}*/);
+    var peer = new Peer({
+        config: {
+            iceServers: [
+                {
+                    urls: "stun:numb.viagenie.ca"
+                },
+                {
+                    urls: "turn:numb.viagenie.ca",
+                    username: "avinvij26@gmail.com",
+                    credential: "avinvij"
+                }
+            ]
+        }
+    });
     var con = null;
     var myid = ""
     peer.on("open", function (id) {
