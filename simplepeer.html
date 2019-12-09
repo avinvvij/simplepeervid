@@ -20,10 +20,10 @@
         <div id="chatsection" style="width: 200px; height: 200px;"></div>
 
         <div style="float: left;">
-            <video autoplay="true" id="video">
+            <video autoplay="true" controls id="video">
 
             </video>
-            <video autoplay="true" id="myvideo">
+            <video autoplay="true" controls id="myvideo">
 
             </video>
         </div>
@@ -86,7 +86,7 @@
     })
 
     peer.on('call', function (call) {
-        let video = document.getElementById("video");               
+        let video = document.getElementById("video");
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function (stream) {
             call.answer(stream); // Answer the call with an A/V stream.
             call.on('stream', function (remoteStream) {
