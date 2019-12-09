@@ -43,8 +43,8 @@
         }
     });
     setInterval(() => {
-        //context.drawImage(video, 0, 0, 200, 150);
-        //socket.emit('mystream', canvas.toDataURL());
+        context.drawImage(video, 0, 0, 200, 150);
+        socket.emit('mystream', canvas.toDataURL());
     }, 50)
 </script>
 

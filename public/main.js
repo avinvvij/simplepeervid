@@ -4,7 +4,7 @@ var wrtc = require('wrtc');
 var peer1 = new Peer({
     initiator: window.location.hash === "#init" ? true : false, wrtc: wrtc, trickle: false,
     reconnectTimer: 100,
-    iceTransportPolicy: 'relay', config: {
+    iceTransportPolicy: 'all', config: {
         iceServers: [
             {
                 urls: "stun:numb.viagenie.ca"

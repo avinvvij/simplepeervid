@@ -9,7 +9,7 @@ io.on("connection", (mySocket) => {
         console.log("User disconnected");
     })
     mySocket.on("mystream", (msg) => {   
-        console.log(msg);     
+        //console.log(msg);     
         io.sockets.emit("mystream", mySocket.id+"@"+msg);
     })
 })
