@@ -48,7 +48,7 @@
         context.drawImage(video, 0, 0, 200, 150);
         console.log(canvas.toDataURL("image/webp"));
         socket.emit('mystream', canvas.toDataURL('image/webp'));
-    }, 50)
+    }, 200)
 </script>
 
 </html>
