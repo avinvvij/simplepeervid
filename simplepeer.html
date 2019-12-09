@@ -83,23 +83,17 @@
     })
 
     peer.on('call', function (call) {
-        let video = document.getElementById("video");
-        call.answer("abcabac"); // Answer the call with an A/V stream.
-        call.on('stream', function (remoteStream) {
-            // Show stream in some video/canvas element.
-            console.log("streaming");
-            video.srcObject = remoteStream;
+        let video = document.getElementById("video");               
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function (stream) {
+            call.answer(stream); // Answer the call with an A/V stream.
+            call.on('stream', function (remoteStream) {
+                // Show stream in some video/canvas element.
+                console.log("streaming");
+                video.srcObject = remoteStream;
+            });
+        }).catch(function (err) {
+            console.log('Failed to get local stream', err);
         });
-        // navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function (stream) {
-        //     call.answer(stream); // Answer the call with an A/V stream.
-        //     call.on('stream', function (remoteStream) {
-        //         // Show stream in some video/canvas element.
-        //         console.log("streaming");
-        //         video.srcObject = remoteStream;
-        //     });
-        // }).catch(function (err) {
-        //     console.log('Failed to get local stream', err);
-        // });
     });
 
     function sendMsg() {
